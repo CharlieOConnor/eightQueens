@@ -18,9 +18,7 @@ public class Queens {
 
 		System.out.print("\n    a   b   c   d   e   f   g   h");
 
-		for (int row = 0; row < chessBoard.length; row++) // A nested for loop
-															// to create the
-															// chess board
+		for (int row = 0; row < chessBoard.length; row++) // A nested for loop to create the chess board
 		{
 			System.out.print("\n  +-------------------------------+\n" + numPosition-- + " |");
 
@@ -40,7 +38,22 @@ public class Queens {
 				System.out.println("Please enter a position between A1 & H8:");
 				boardPosition = scan.next();
 			}
+	
+			int column = boardPosition.charAt(0) - 'a';
+			int row = boardPosition.charAt(0) - '1';
 			
+			
+			 for(int i = 0; i < column; i++)
+			{
+				for(int j = 0; j < row; j++)
+				{
+					if(i == column && j == row)
+						
+					System.out.print("Q");	
+			}
+			}
+			
+	    
 			
 		scan.close();
 	}
