@@ -4,20 +4,23 @@ import java.util.Scanner;
 
 public class Queens {
 
-	  int[][] chessBoard = new int[8][8];
+	int[][] chessBoard = new int[8][8];
 
 	public Queens() {
-		
-		int numPosition = 8; //Placeholder for number positions on the chess board
+
+		int numPosition = 8; // Placeholder for number positions on the chess
+								// board
 
 		System.out.print("This is an 8 Queens chessboard\n\n");
-	    System.out.print("Please enter a position on the board (i.e. D3)\n");
-	    
-	    //placeQueen();
-	    
-	    System.out.print("\n    a   b   c   d   e   f   g   h");
+		System.out.print("Please enter a position on the board (i.e. D3)\n");
 
-		for (int row = 0; row < chessBoard.length; row++) //A nested for loop to create the chess board												
+		placeQueen();
+
+		System.out.print("\n    a   b   c   d   e   f   g   h");
+
+		for (int row = 0; row < chessBoard.length; row++) // A nested for loop
+															// to create the
+															// chess board
 		{
 			System.out.print("\n  +-------------------------------+\n" + numPosition-- + " |");
 
@@ -27,13 +30,18 @@ public class Queens {
 		}
 		System.out.print("\n  +-------------------------------+\n");
 	}
-	
-	public void placeQueen() //Enter queen at user's specified position
+
+	public void placeQueen() // Enter queen at user's specified position
 	{
-     Scanner scan = new Scanner(System.in);
-     String boardPosition = scan.next();
-     
-     
-     scan.close();
+		Scanner scan = new Scanner(System.in);
+		String boardPosition = scan.next();
+		
+			while (boardPosition.length() != 2) {
+				System.out.println("Please enter a position between A1 & H8:");
+				boardPosition = scan.next();
+			}
+			
+			
+		scan.close();
 	}
 }
