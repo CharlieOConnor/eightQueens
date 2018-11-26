@@ -4,20 +4,15 @@ import java.util.Scanner;
 
 public class Queens {
 
-	String[][] chessBoard = new String[8][8];
+	static String[][] chessBoard = new String[8][8];
 
-	/** Maybe change to a string? (Originally an int) */
-
-	public Queens() {
-
-		
+	public static void setup() {
 		
 		for (int i = 0; i < chessBoard.length; i++) {
 			for (int j = 0; j < chessBoard[i].length; j++) {
 				chessBoard[i][j] = " ";
 			}
-		}
-		
+		}	
 				
 		
 	}
