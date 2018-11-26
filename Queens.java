@@ -19,10 +19,10 @@ public class Queens {
 		}
 		
 				
-		placeQueen();
-		printBoard();
+		
 	}
-    public void printBoard() 
+	
+    public static void printBoard() 
     {
     	int numPosition = 1; // Placeholder for number positions on the chess board
     	
@@ -43,7 +43,7 @@ public class Queens {
 		System.out.print("\n  +-------------------------------+\n");
     }
     
-	public void placeQueen() // Enter queen at user's specified position
+	public static void placeQueen() // Enter queen at user's specified position
 	{
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Please enter a position on the board (i.e. D3)\n");
@@ -53,21 +53,16 @@ public class Queens {
 			System.out.println("Please enter a position between A1 & H8:");
 			boardPosition = scan.next();
 		}
-
+ 
 		int column = boardPosition.charAt(0) - 'a';
 		int row = boardPosition.charAt(1) - 49;
-		
-		System.out.println(column);
-		System.out.println(row);
-        chessBoard[row][column] = "Q";
-        
-		/* for (int i = 0; i < chessBoard.length; i++) {
-			for (int j = 0; j < chessBoard[i].length; j++) {
-				if (i == column && j == row)
 
-					System.out.print("Q");
-			}
-		} */
+        if(column > 8)
+        {
+        	boardPosition = scan.next();
+        }
+        chessBoard[row][column] = "\u265B";
+        
 		scan.close();
 	}
 }
