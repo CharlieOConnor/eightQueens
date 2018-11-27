@@ -8,12 +8,14 @@ public class Queens {
 
 	static int row;
 	static int column;
+    static int currentRow;
+	static int currentColumn;
 
 	public static void setup() {
 
-		for (int i = 0; i < chessBoard.length; i++) {
-			for (int j = 0; j < chessBoard[i].length; j++) {
-				chessBoard[i][j] = " ";
+		for (row = 0; row < chessBoard.length; row++) {
+			for (column = 0; column < chessBoard[row].length; column++) {
+				chessBoard[row][column] = " ";
 			}
 		}
 	}
@@ -25,11 +27,11 @@ public class Queens {
 
 		System.out.print("\n    a   b   c   d   e   f   g   h");
 
-		for (int row = 0; row < chessBoard.length; row++) // A nested for loop to create the chess board
+		for (row = 0; row < chessBoard.length; row++) // A nested for loop to create the chess board
 		{
 			System.out.print("\n  +-------------------------------+\n" + numPosition++ + " |");
 
-			for (int column = 0; column < chessBoard[row].length; column++) {
+			for (column = 0; column < chessBoard[row].length; column++) {
 				System.out.print(" ");
 				System.out.print(chessBoard[row][column]); // Adds space in-between pipes
 				System.out.print(" |");
@@ -38,7 +40,7 @@ public class Queens {
 		System.out.print("\n  +-------------------------------+\n");
 	}
 
-	public static void placeQueen() // Enter queen at user's specified position
+	public static void placeFirstQueen() // Enter queen at user's specified position
 	{
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Please enter a position on the board (i.e. D3)\n");
@@ -64,9 +66,6 @@ public class Queens {
 	 */
 	public static void markConflicts() 
 	{
-	    int currentRow;
-		int currentColumn;
-		
 		for (currentRow = 0; currentRow < 8; currentRow++) 
 		{
 			for (currentColumn = 0; currentColumn < 8; currentColumn++) 
@@ -83,17 +82,40 @@ public class Queens {
 			   }
 			   // Check for left diagonal conflicts 
 			   /** Not Working*/
-			   if (Math.abs(currentRow - currentColumn) == Math.abs(row - column) && chessBoard[currentRow][currentColumn] == " ") 
+			   if ((currentRow - currentColumn) == (row - column) && chessBoard[currentRow][currentColumn] == " ") 
 			   {
 				   chessBoard[currentRow][currentColumn] = ".";
 			   }
 			   // Check for right diagonal conflicts
-			   if (currentRow + currentColumn == row + column && chessBoard[currentRow][currentColumn] == " ")
+			   if ((currentRow + currentColumn) == (row + column) && chessBoard[currentRow][currentColumn] == " ")
 			   {
 				   chessBoard[currentRow][currentColumn] = ".";
 			   }
 			
 			}
 		}
+	}
+	
+	public static void printCurrentBoard()
+	{
+		System.out.print(chessBoard);
+	}
+	
+	/**
+	 * A rudimentary method to automatically print as close
+	 * to the full 8 queens as possible.
+	 */
+	public static void placeRemainingQueens() 
+	{
+	 for(currentRow = 0; currentRow < 8; row++)
+	 {
+	   for(currentColumn = 0; currentColumn < 8; column++)
+	   {
+		   if (chessBoard[currentRow][currentColumn] == " ")
+		   {
+			   chessBoard[currentRow][currentColumn] = "\u265B";
+		   }
+	   }
+	 }
 	}
 }
