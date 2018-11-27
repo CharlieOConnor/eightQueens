@@ -6,6 +6,7 @@ public class Main {
 		
 		Queens.setup();
 		Queens.placeQueen();
+		Queens.markConflicts();
 		Queens.printBoard();
 	}
 }
