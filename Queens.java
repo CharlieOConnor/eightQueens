@@ -56,22 +56,20 @@ public class Queens {
 
 		scan.close(); // Close the scanner to prevent a resource leak
 	}
-
+	
+	/**
+	 * Mark positions that are "off limits" by adding 
+	 * dots around at horizontal, vertical and
+	 * diagonal positions that the queen is placed in
+	 */
 	public static void markConflicts() 
 	{
-	    int currentColumn = 0;
-		int currentRow = 0;
+	    int currentRow;
+		int currentColumn;
 		
-		for (currentColumn = 0; currentColumn < 8; currentColumn++) 
+		for (currentRow = 0; currentRow < 8; currentRow++) 
 		{
-			   // Check for diagonal conflicts 
-			   /** Not Working*/
-			   if (Math.abs(currentRow - currentColumn) == Math.abs(row - column) && chessBoard[row][column] != "\u265B") 
-			   {
-				   chessBoard[currentRow][column] = ".";
-			   }
-			
-			for (currentRow = 0; currentRow < 8; currentRow++) 
+			for (currentColumn = 0; currentColumn < 8; currentColumn++) 
 			{
 			   // Check for conflicts in the same column
 			   if (chessBoard[row][currentColumn] == " ") 
@@ -83,11 +81,16 @@ public class Queens {
 			   {
 				   chessBoard[currentRow][column] = ".";
 			   }
-			   // Check for diagonal conflicts 
+			   // Check for left diagonal conflicts 
 			   /** Not Working*/
-			   if (Math.abs(currentRow - currentColumn) == Math.abs(row - column) && chessBoard[row][column] != "\u265B") 
+			   if (Math.abs(currentRow - currentColumn) == Math.abs(row - column) && chessBoard[currentRow][currentColumn] == " ") 
 			   {
-				   chessBoard[currentRow][column] = ".";
+				   chessBoard[currentRow][currentColumn] = ".";
+			   }
+			   // Check for right diagonal conflicts
+			   if (currentRow + currentColumn == row + column && chessBoard[currentRow][currentColumn] == " ")
+			   {
+				   chessBoard[currentRow][currentColumn] = ".";
 			   }
 			
 			}
