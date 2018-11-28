@@ -90,16 +90,15 @@ public class Queens {
 			   if ((currentRow + currentColumn) == (row + column) && chessBoard[currentRow][currentColumn] == " ")
 			   {
 				   chessBoard[currentRow][currentColumn] = ".";
-			   }
-			
+			   }			
 			}
 		}
 	}
 	
-	public static void printCurrentBoard()
+	/**public static void printCurrentBoard()
 	{
 		System.out.print(chessBoard);
-	}
+	}*/
 	
 	/**
 	 * A rudimentary method to automatically print as close
@@ -107,13 +106,14 @@ public class Queens {
 	 */
 	public static void placeRemainingQueens() 
 	{
-	 for(currentRow = 0; currentRow < 8; row++)
+	 for(row = 0; row < 8; row++)
 	 {
-	   for(currentColumn = 0; currentColumn < 8; column++)
+	   for(column = 0; column < 8; column++)
 	   {
-		   if (chessBoard[currentRow][currentColumn] == " ")
+		   if (chessBoard[row][column] == " ")
 		   {
-			   chessBoard[currentRow][currentColumn] = "\u265B";
+			   chessBoard[row][column] = "\u265B";
+			   markConflicts();
 		   }
 	   }
 	 }
