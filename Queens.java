@@ -15,7 +15,7 @@ public class Queens {
 	 * Fill all positions in the board with empty spaces
 	 */
 	public void setup() {
-
+		
 		for (row = 0; row < chessBoard.length; row++) {
 			for (column = 0; column < chessBoard[row].length; column++) {
 				chessBoard[row][column] = " ";
@@ -29,8 +29,6 @@ public class Queens {
 	public void printBoard() {
 		int numPosition = 1; // Placeholder for number positions on the chess
 								// board
-
-		System.out.print("\nThis is an 8 Queens chessboard\n\n");
 
 		System.out.print("\n    a   b   c   d   e   f   g   h");
 
@@ -121,7 +119,12 @@ public class Queens {
 	 * A rudimentary method to automatically print as close to the full 8 queens
 	 * as possible.
 	 */
-	public void placeRemainingQueens() {
+	public void tryPlaceRemainingQueens() {
+		
+		System.out.print("\nUser entered the first queen\n\n");
+		
+		System.out.print("Algorithm enters the rest\n");
+		
 		for (row = 0; row < 8; row++) {
 			for (column = 0; column < 8; column++) {
 				if (chessBoard[row][column] == " ") {
@@ -132,6 +135,29 @@ public class Queens {
 			}
 		}
 	}
+	
+	/*bpublic boolean placeRemainingQueens()
+	{
+		int queenCounter = 0;
+		
+		if(queenCounter == 8)
+		{
+			return true;
+		}
+		boolean isAllQueensPlaced = false;
+		for (row = 0; row < 8; row++)
+		{
+			for (column = 0; column < 8; column++)
+			{
+				if(chessBoard[row][column] == " ")
+				{
+					
+				}
+			}
+		} 
+		
+		return isAllQueensPlaced;
+	}*/
 
 	/**
 	 * Remove all markers on conflict positions for easier viewing when the
