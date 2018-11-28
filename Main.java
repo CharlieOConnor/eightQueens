@@ -9,8 +9,8 @@ public class Main {
 		Queens.setup();
 		Queens.placeFirstQueen();
 		Queens.markConflicts();
-		//Queens.printBoard();
-		Queens.placeRemainingQueens();
+		Queens.printBoard();	
+		Queens.tryPlaceRemainingQueens();
 		Queens.removeDots(); 
 		Queens.printBoard();
 	}
