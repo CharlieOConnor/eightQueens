@@ -7,7 +7,8 @@ public class Main {
 		Queens.setup();
 		Queens.placeFirstQueen();
 		Queens.markConflicts();
-		//Queens.placeRemainingQueens();
-		Queens.printCurrentBoard();
+		//Queens.printBoard();
+		Queens.placeRemainingQueens();
+		Queens.printBoard();
 	}
 }
