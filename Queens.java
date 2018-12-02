@@ -4,21 +4,19 @@ import java.util.Scanner;
 
 public class Queens {
 
-	static String[][] chessBoard = new String[8][8]; // Create a 2D array for
-														// the chess board
-	static int row;
-	static int column;
-	static int currentRow;
-	static int currentColumn;
+	/* Create a 2D array for the chess board */
+	String[][] chessBoard = new String [8][8]; 
 
 	/**
 	 * Fill all positions in the board with empty spaces
+	 * to allow queens to be placed
 	 */
 	public void setup() {
 		
-		for (row = 0; row < chessBoard.length; row++) {
-			for (column = 0; column < chessBoard[row].length; column++) {
-				chessBoard[row][column] = " ";
+		for (int row = 0; row < chessBoard.length; row++) {
+			for (int column = 0; column < chessBoard[row].length; column++) {
+				/* Fill all positions with spaces */
+				chessBoard[row][column] = " "; 
 			}
 		}
 	}
@@ -27,21 +25,19 @@ public class Queens {
 	 * Print the final state of the board after all queens have been added
 	 */
 	public void printBoard() {
-		int numPosition = 1; // Placeholder for number positions on the chess
-								// board
+		
+		int numPosition = 1; 
 
 		System.out.print("\n    a   b   c   d   e   f   g   h");
-
-		for (row = 0; row < chessBoard.length; row++) // A nested for loop to
-														// create the chess
-														// board
+		
+		/* A nested for loop to create the chess board */
+		for (int row = 0; row < chessBoard.length; row++) 
 		{
 			System.out.print("\n  +-------------------------------+\n" + numPosition++ + " |");
 
-			for (column = 0; column < chessBoard[row].length; column++) {
+			for (int column = 0; column < chessBoard[row].length; column++) {
 				System.out.print(" ");
-				System.out.print(chessBoard[row][column]); // Adds space
-															// in-between pipes
+				System.out.print(chessBoard[row][column]); // Prints space or queen															
 				System.out.print(" |");
 			}
 		}
@@ -56,120 +52,117 @@ public class Queens {
 		String boardPosition;
 		boolean success = false;
 
-		System.out.print("Please enter a position on the board (i.e. D3)\n");
+		System.out.print("Please enter a position on the board (i.e. D3): ");
 		boardPosition = scan.next();
 
-		while (success == false) // Try catch block to handle all exceptions to accepted user input
+		while (success == false) // Try catch block to handle all exceptions for accepted user input
 		{
 			try {
-				column = boardPosition.charAt(0) - 'a';
-				row = boardPosition.charAt(1) - 49;
-				chessBoard[row][column] = "\u265B"; // Print user's entered Queen
+				int column = boardPosition.charAt(0) - 'a';
+				int row = boardPosition.charAt(1) - 49;
+				chessBoard[row][column] = "\u265B"; // Enter user's Queen at specified position
 				success = true;
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Please enter a two character position between A1 & H8:");
+			} 
+			
+			catch (ArrayIndexOutOfBoundsException e) {
+				System.out.print("Please enter a two character position between A1 & H8: ");
 				boardPosition = scan.next();
 			}
 
 			catch (StringIndexOutOfBoundsException e) {
-				System.out.println("Please enter a two character position between A1 & H8:");
+				System.out.print("Please enter a two character position between A1 & H8: ");
 				boardPosition = scan.next();
 			}
 
 			if (boardPosition.length() != 2) {
 				success = false;
-				System.out.println("Please enter a two character position between A1 & H8:");
+				System.out.print("Please enter a two character position between A1 & H8: ");
 				boardPosition = scan.next();
 			}
 
 		}
 		scan.close(); // Close the scanner to prevent a resource leak
 	}
-
-	/**
-	 * Mark positions that are "off limits" by adding dots around at horizontal,
-	 * vertical and diagonal positions that the queen is placed in
+	
+	/** 
+	 * Check all possible conflicts for each new queen
 	 */
-	public void markConflicts() {
-		for (currentRow = 0; currentRow < 8; currentRow++) {
-			for (currentColumn = 0; currentColumn < 8; currentColumn++) {
-				
-				// Check for conflicts in the same column
-				if (chessBoard[row][currentColumn] == " ") {
-					chessBoard[row][currentColumn] = ".";
-				}
-				// Check for conflicts in the same row
-				if (chessBoard[currentRow][column] == " ") {
-					chessBoard[currentRow][column] = ".";
-				}
-				// Check for left diagonal conflicts
-				if ((currentRow - currentColumn) == (row - column) && chessBoard[currentRow][currentColumn] == " ") {
-					chessBoard[currentRow][currentColumn] = ".";
-				}
-				// Check for right diagonal conflicts
-				if ((currentRow + currentColumn) == (row + column) && chessBoard[currentRow][currentColumn] == " ") {
-					chessBoard[currentRow][currentColumn] = ".";
-				}
-			}
-		}
-	}
-
-	/**
-	 * A rudimentary method to automatically print as close to the full 8 queens
-	 * as possible.
-	 */
-	public void tryPlaceRemainingQueens() {
-		
-		System.out.print("\nUser entered the first queen\n\n");
-		
-		System.out.print("Algorithm enters the rest\n");
-		
-		for (row = 0; row < 8; row++) {
-			for (column = 0; column < 8; column++) {
-				if (chessBoard[row][column] == " ") {
-					chessBoard[row][column] = "\u265B"; // Place new queen
-					markConflicts(); // Call this method again to mark off all
-										// new conflict positions
-				}
-			}
-		}
+	public boolean isSafe(int row, int column)
+	{
+        int i, j;
+        
+        /* Check for column conflicts */
+        for(i = 0; i < 8; i++)
+        {
+        	if(chessBoard[i][column] == "\u265B") 
+    			return true;
+        } 
+        /* Check for row conflicts */
+        for(j = 0; j < 8; j++)
+        {
+        	if(chessBoard[row][j] == "\u265B")
+        		return false;
+        } 
+        /* Check upper diagonal on the left side */
+        for(i = row, j = column; i >= 0 && j >= 0; i--, j--)
+        {
+        	if(chessBoard[i][j] == "\u265B")
+        		return false;
+        }
+        /* Check lower diagonal on the left side */
+        for(i = row, j = column; i < 8 && j >= 0; i++, j--)
+        {
+        	if(chessBoard[i][j] == "\u265B")
+        		return false;
+        }
+        /* Check upper diagonal on the right side */
+        for(i = row, j = column; i >= 0 && j < 8; i--, j++)
+        {
+        	if(chessBoard[i][j] == "\u265B")
+        		return false;
+        }
+        /* Check lower diagonal on the right side */
+        for(i = row, j = column; i < 8 && j < 8; i++, j++)
+        {
+        	if(chessBoard[i][j] == "\u265B")
+        		return false;
+        }   
+		return true;
 	}
 	
-	/*bpublic boolean placeRemainingQueens()
+	/** 
+	 * Begin placing queens by calling isSafe() method recursively
+	 */
+	public boolean placeRemainingQueens(int column)
 	{
-		int queenCounter = 0;
-		
-		if(queenCounter == 8)
+		/* Base case: if all queens are placed
+		   then return true */
+		if (column == 8)
 		{
 			return true;
 		}
-		boolean isAllQueensPlaced = false;
-		for (row = 0; row < 8; row++)
-		{
-			for (column = 0; column < 8; column++)
-			{
-				if(chessBoard[row][column] == " ")
-				{
-					
-				}
-			}
-		} 
 		
-		return isAllQueensPlaced;
-	}*/
-
-	/**
-	 * Remove all markers on conflict positions for easier viewing when the
-	 * board is printed
-	 */
-	public void removeDots() {
-		for (row = 0; row < 8; row++) {
-			for (column = 0; column < 8; column++) {
-				if (chessBoard[row][column] == ".") {
-					chessBoard[row][column] = " ";
-				}
+		for(int i = 0; i < 8; i++)
+		{
+			if(isSafe(i, column))
+			{
+				chessBoard[i][column] = "\u265B";
+			
+			if(placeRemainingQueens(column + 1) == true)			
+				return true;
+			
+			    chessBoard[i][column] = " ";
 			}
 		}
+		return false;
 	}
+	
+	/**
+	 * Initialise starting column for placing the remaining
+	 * queens, so it can be called in the main class 
+	 */
+	public void solve8Queens()
+	  {
+		placeRemainingQueens(0);
+	  }
 }
