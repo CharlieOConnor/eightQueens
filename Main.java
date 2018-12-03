@@ -4,15 +4,15 @@ public class Main {
 
 	public static void main(String args[]) {
 		
-		/*NQueenProblem Queen = new NQueenProblem(); 
-        Queen.solveNQ(); */
+	    Queens queens = new Queens(); //Create an instance of the Queens class
 		
-	    Queens Queens = new Queens(); //Create an instance of the Queens class
-		
-		Queens.setup();
-		Queens.placeFirstQueen();
-		Queens.printBoard();	
-		Queens.solve8Queens(); 
-		Queens.printBoard();
+		queens.setup();
+		queens.placeFirstQueen();
+		queens.printBoard();
+		System.out.println("\nUser's inputted Queen ↑\n");
+		System.out.println("All 8 Queens entered ↓");
+		queens.solve8Queens(); 
+		queens.printBoard();
 	}
 }
+
