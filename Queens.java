@@ -22,7 +22,7 @@ public class Queens {
 	}
 
 	/**
-	 * Print the final state of the board after all queens have been added
+	 * Print the current state of the board
 	 */
 	public void printBoard() {
 		
@@ -55,7 +55,8 @@ public class Queens {
 		System.out.print("Please enter a position on the board (i.e. D3): ");
 		boardPosition = scan.next();
 
-		while (success == false) // Try catch block to handle all exceptions for accepted user input
+		/* Try catch block to handle all exceptions for accepted user input */
+		while (success == false) 
 		{
 			try {
 				int column = boardPosition.charAt(0) - 'a';
@@ -92,10 +93,10 @@ public class Queens {
         int i, j;
         
         /* Check for column conflicts */
-        for(i = 0; i < 8; i++)
+        for(i = row; i < 8; i++)
         {
         	if(chessBoard[i][column] == "\u265B") 
-    			return true;
+    			return true; // To skip column with user's queen
         } 
         /* Check for row conflicts */
         for(j = 0; j < 8; j++)
