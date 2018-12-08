@@ -4,7 +4,8 @@ public class Main {
 
 	public static void main(String args[]) {
 		
-	    Queens queens = new Queens(); //Create an instance of the Queens class
+		/* Create an constructor for the queen class */
+	    Queens queens = new Queens(); 
 		
 		queens.setup();
 		queens.placeFirstQueen();
