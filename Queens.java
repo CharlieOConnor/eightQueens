@@ -3,24 +3,20 @@ package eightQueens;
 import java.util.Scanner;
 
 public class Queens {
-	
-	/* Variables to hold the user queen position
-	 * for later comparison */
-	int userColumn;
-	int userRow;
 
-	/* Create a 2D array for the chess board */
+	/* Variable to hold the user queen column position for later comparison */
+	int userColumn;
+
 	String[][] chessBoard = new String[8][8];
 
 	/**
-	 * Fill all positions in the board with empty spaces to allow queens to be
-	 * placed
+	 * Fill all positions in the board with empty spaces to allow queens to be placed
 	 */
 	public void setup() {
 
 		for (int row = 0; row < chessBoard.length; row++) {
 			for (int column = 0; column < chessBoard[row].length; column++) {
-				
+
 				/* Fill all positions with spaces */
 				chessBoard[row][column] = " ";
 			}
@@ -42,8 +38,7 @@ public class Queens {
 
 			for (int column = 0; column < chessBoard[row].length; column++) {
 				System.out.print(" ");
-				System.out.print(chessBoard[row][column]); // Prints space or
-															// queen
+				System.out.print(chessBoard[row][column]); // Prints space or queen
 				System.out.print(" |");
 			}
 		}
@@ -95,8 +90,8 @@ public class Queens {
 	/**
 	 * Check all possible conflicts for each new queen
 	 */
-	public boolean isSafe(int row, int column) {
-		
+	public boolean isSafe(String chessBoard[][], int row, int column) {
+
 		int i, j;
 
 		/* Check for row conflicts */
@@ -131,19 +126,22 @@ public class Queens {
 	 * Begin placing queens by calling isSafe() method recursively
 	 */
 	public boolean placeRemainingQueens(String chessBoard[][], int column) {
-		
+
 		/* Base case: if all queens are placed then return true */
 		if (column == 8) {
 			return true;
+			/** Make changes here to accommodate printing multiple
+			 * solutions. Possibly use another array to hold them*/
+			//return true;
 		}
 
 		for (int i = 0; i < 8; i++) {
 
 			/*
-			 * if isSafe() returns true, then place a queen in the designated
+			 * If isSafe() returns true, then place a queen in the designated
 			 * spot and move onto the next column
 			 */
-			if (isSafe(i, column)) {
+			if (isSafe(chessBoard, i, column)) {
 				chessBoard[i][column] = "\u265B";
 
 				if (placeRemainingQueens(chessBoard, column + 1) == true)
@@ -153,6 +151,7 @@ public class Queens {
 				chessBoard[i][column] = " ";
 			}
 		}
+
 		/* If the column contains a user queen skip the column */
 		if (column == userColumn) {
 			if (placeRemainingQueens(chessBoard, column + 1) == true)
