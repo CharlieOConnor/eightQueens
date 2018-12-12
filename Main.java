@@ -13,7 +13,6 @@ public class Main {
 		System.out.println("\nUser's inputted Queen ↑\n");
 		System.out.println("All 8 Queens entered ↓");
 		queens.solve8Queens(); 
-		queens.printBoard();
 	}
 }
 
