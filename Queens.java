@@ -1,16 +1,19 @@
 package eightQueens;
-
 import java.util.Scanner;
 
 public class Queens {
 
 	/* Variable to hold the user queen column position for later comparison */
 	int userColumn;
+	
+	int solutionNo = 1;
 
 	String[][] chessBoard = new String[8][8];
 
+	
+	
 	/**
-	 * Fill all positions in the board with empty spaces to allow queens to be placed
+	 * Fill all positions in the chessboard with empty spaces to allow queens to be placed
 	 */
 	public void setup() {
 
@@ -23,6 +26,8 @@ public class Queens {
 		}
 	}
 
+	
+	
 	/**
 	 * Print the current state of the board
 	 */
@@ -45,6 +50,8 @@ public class Queens {
 		System.out.print("\n  +-------------------------------+\n");
 	}
 
+	
+	
 	/**
 	 * The first queen is placed via user input
 	 */
@@ -57,7 +64,7 @@ public class Queens {
 		boardPosition = scan.next();
 
 		/* Try catch block to handle all exceptions for accepted user input */
-		while (success == false) {
+		while (!success) {
 			try {
 				int column = boardPosition.charAt(0) - 'a';
 				int row = boardPosition.charAt(1) - 49;
@@ -78,7 +85,6 @@ public class Queens {
 			}
 
 			if (boardPosition.length() != 2) {
-				success = false;
 				System.out.print("Please enter a two character position between A1 & H8: ");
 				boardPosition = scan.next();
 			}
@@ -87,6 +93,8 @@ public class Queens {
 		scan.close(); // Close the scanner to prevent a resource leak
 	}
 
+	
+	
 	/**
 	 * Check all possible conflicts for each new queen
 	 */
@@ -122,25 +130,33 @@ public class Queens {
 		return true;
 	}
 
+	
+	
 	/**
 	 * Begin placing queens by calling isSafe() method recursively
 	 */
 	public boolean placeRemainingQueens(String chessBoard[][], int column) {
 
-		/* Base case: if all queens are placed then return true */
+		/* Once all queens are placed, print out all solutions that
+		 * include the user placed queen */		
 		if (column == 8) {
-			return true;
-			/** Make changes here to accommodate printing multiple
-			 * solutions. Possibly use another array to hold them*/
-			//return true;
+			
+			System.out.print("\nSolution " + solutionNo++);
+			printBoard();
+			
+			return false;
 		}
 
+		/* If the column contains a user queen skip the column */
+		if (column == userColumn) {
+			if (placeRemainingQueens(chessBoard, column + 1) == true)
+				return true;
+		}
+		
 		for (int i = 0; i < 8; i++) {
 
-			/*
-			 * If isSafe() returns true, then place a queen in the designated
-			 * spot and move onto the next column
-			 */
+			/* If isSafe() returns true, then place a queen in the designated
+			 * spot and move onto the next column */
 			if (isSafe(chessBoard, i, column)) {
 				chessBoard[i][column] = "\u265B";
 
@@ -149,17 +165,13 @@ public class Queens {
 
 				/* Else, backtrack */
 				chessBoard[i][column] = " ";
-			}
-		}
-
-		/* If the column contains a user queen skip the column */
-		if (column == userColumn) {
-			if (placeRemainingQueens(chessBoard, column + 1) == true)
-				return true;
+			}			
 		}
 		return false;
 	}
 
+	
+	
 	/**
 	 * Initialise starting column for placing the remaining queens, so it can be
 	 * called in the main class
